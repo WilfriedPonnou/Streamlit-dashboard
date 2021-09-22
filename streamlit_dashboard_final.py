@@ -1,13 +1,13 @@
-from seaborn.matrix import _HeatMapper
+
 import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import time
-import io
-import base64
-import streamlit.components.v1 as components
+
+
+
 
 
 st.set_page_config(page_title="Dashboard", page_icon="https://www.camping-croisee-chemins.fr/wp-content/uploads/2021/02/Recyclage.png",layout="wide")
