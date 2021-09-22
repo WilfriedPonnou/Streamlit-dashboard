@@ -68,7 +68,7 @@ def datetimetf(dfcolumn):
 #@timer
 #@st.cache(suppress_st_warning=True)
 def occurences(df,groupbyfactor):
-    data=df.groupby(groupbyfactor).size().unstack()
+    data=df.groupby(groupbyfactor).size()
     return data
 #@timer
 @st.cache(suppress_st_warning=True)
