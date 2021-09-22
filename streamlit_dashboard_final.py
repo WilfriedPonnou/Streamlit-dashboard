@@ -12,8 +12,8 @@ import streamlit.components.v1 as components
 st.set_page_config(page_title="Dashboard", page_icon="https://www.camping-croisee-chemins.fr/wp-content/uploads/2021/02/Recyclage.png",layout="wide")
 
 st.title("Datasets dashboards by PONNOU Wilfried")
-dataset1='C:/Users/PONNOU Wilfried/OneDrive - Efrei/M1/data viz/Labs/uber-raw-data-apr14.csv'
-dataset2='C:/Users/PONNOU Wilfried/OneDrive - Efrei/M1/data viz/Labs/ny-trips-data.csv'
+dataset1='./uber-raw-data-apr14.csv'
+dataset2='./ny-trips-data.csv'
 
 ##################COMPOSANT BIDIRECTIONNEL RADIOBUTTON#######################################################################################
 _radio_button = components.declare_component(
