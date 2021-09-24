@@ -66,7 +66,7 @@ def datetimetf(dfcolumn):
     datetimecolumn=pd.to_datetime(dfcolumn)
     return datetimecolumn
 #@timer
-#@st.cache(suppress_st_warning=True)
+@st.cache(suppress_st_warning=True)
 def occurences(df,groupbyfactor):
     data=df.groupby(groupbyfactor).size()
     return data
