@@ -8,28 +8,29 @@ import streamlit.components.v1 as components
 
 
 st.set_page_config(page_title="Dashboard", page_icon="https://www.camping-croisee-chemins.fr/wp-content/uploads/2021/02/Recyclage.png",layout="wide")
-
+datasetchoice = st.sidebar.selectbox('Which dataset do you want to explore',
+    ["dataset Uber","dataset NY"])
 st.title("Datasets dashboards | PONNOU Wilfried")
 dataset1='./uber-raw-data-apr14.csv'
 dataset2='./ny-trips-data.csv'
 
 ##################COMPOSANT BIDIRECTIONNEL RADIOBUTTON#######################################################################################
-_radio_button = components.declare_component(
-    "radio_button", url="http://localhost:3001",
-)
+#_radio_button = components.declare_component(
+#    "radio_button", url="http://localhost:3001",
+#)
 
 
 
-def custom_radio_button(label, options, default, key=None):
-    return _radio_button(label=label, options=options, default=default, key=key)
+#def custom_radio_button(label, options, default, key=None):
+#    return _radio_button(label=label, options=options, default=default, key=key)
 
-with st.sidebar:
-    datasetchoice = custom_radio_button(
-    "Which dataset?",
-    options=["dataset Uber","dataset NY"],
-    default="dataset NY"
-    )
-    st.write("Chosen Datset: %s" % datasetchoice)
+#with st.sidebar:
+#    datasetchoice = custom_radio_button(
+#    "Which dataset?",
+#    options=["dataset Uber","dataset NY"],
+#    default="dataset NY"
+#    )
+#    st.write("Chosen Datset: %s" % datasetchoice)
 ################################################################################################################################################
 #############################Le COMPOSANT STATIC SE TROUVE A LA LIGNE 327##################################################""
 
