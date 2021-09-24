@@ -7,13 +7,11 @@ import time
 import streamlit.components.v1 as components
 
 
-
-
 st.set_page_config(page_title="Dashboard", page_icon="https://www.camping-croisee-chemins.fr/wp-content/uploads/2021/02/Recyclage.png",layout="wide")
 
-st.title("Datasets dashboards by PONNOU Wilfried")
-dataset1='./uber-raw-data-apr14.csv'
-dataset2='./ny-trips-data.csv'
+st.title("Datasets dashboards | PONNOU Wilfried")
+dataset1='C:/Users/PONNOU Wilfried/OneDrive - Efrei/M1/data viz/Labs/uber-raw-data-apr14.csv'
+dataset2='C:/Users/PONNOU Wilfried/OneDrive - Efrei/M1/data viz/Labs/ny-trips-data.csv'
 
 ##################COMPOSANT BIDIRECTIONNEL RADIOBUTTON#######################################################################################
 _radio_button = components.declare_component(
@@ -31,7 +29,7 @@ with st.sidebar:
     options=["dataset Uber","dataset NY"],
     default="dataset NY"
     )
-    st.write("This dataset has been choosed: %s" % datasetchoice)
+    st.write("Chosen Datset: %s" % datasetchoice)
 ################################################################################################################################################
 #############################Le COMPOSANT STATIC SE TROUVE A LA LIGNE 327##################################################""
 
@@ -59,6 +57,7 @@ def get_hour(dt):
 def tf(dfcolumn,getwhat):
     data=dfcolumn.map(getwhat)
     return data
+@st.cache(suppress_st_warning=True,allow_output_mutation=True)
 def readcsv(dataset):
     return pd.read_csv(dataset)
 
@@ -71,13 +70,13 @@ def occurences(df,groupbyfactor):
     data=df.groupby(groupbyfactor).size()
     return data
 #@timer
-@st.cache(suppress_st_warning=True)
+#@st.cache(suppress_st_warning=True)
 def mapper(dflat,dflon):
     gpspoints={'latitude':dflat,'longitude':dflon}
     map_data = pd.DataFrame(data=gpspoints)
     st.map(map_data)
 #@timer
-@st.cache(suppress_st_warning=True)
+#@st.cache(suppress_st_warning=True)
 def histplotter(column,bine,rwidth,rang,title,xlabel,ylabel):
     fig,ax= plt.subplots()
     n,bine,patches=ax.hist(column,bins=bine, rwidth=rwidth,range=rang)
@@ -88,11 +87,11 @@ def histplotter(column,bine,rwidth,rang,title,xlabel,ylabel):
     ax.set_ylabel(ylabel)
     st.pyplot(fig)
 #@timer
-#@st.cache(suppress_st_warning=True)
+@st.cache(suppress_st_warning=True)
 def occurencecounter(param,groupbyfactor, text):
     st.write(occurences(df,groupbyfactor)[int(param)], text)
 #@timer
-#@st.cache(suppress_st_warning=True)
+@st.cache(suppress_st_warning=True)
 def sorter(df,param):
     return df.sort_values(param)
 #@timer
@@ -104,9 +103,9 @@ def mapparam(sliderparam,dflon,dflat,coordparam,start,stop,begin):
     st.subheader(f'Map of all orders at {param_to_filter}')
     st.map(filtered_data)
 #@timer
-@st.cache(suppress_st_warning=True)
+#@st.cache(suppress_st_warning=True)
 def heatmapplotter(df,params,title):
-    df_grouped_by_params=occurences(df,params)
+    df_grouped_by_params=occurences(df,params).unstack()
     fig,ax=plt.subplots()
     ax=sns.heatmap(df_grouped_by_params)
     ax.set_title(title)
@@ -117,7 +116,7 @@ def linear(kms,xparam,yparam):
     m, b = np.polyfit(xparam, yparam, 1)
     return m*kms+b
 #@timer
-@st.cache(suppress_st_warning=True)
+#@st.cache(suppress_st_warning=True)
 def twoplots(xparam,yparam,xlabel,ylabel,title) : 
     x=xparam
     y=yparam
@@ -132,13 +131,13 @@ def twoplots(xparam,yparam,xlabel,ylabel,title) :
     plt.plot(x,y, "r*")
     return m,b
 #@timer
-@st.cache(suppress_st_warning=True)
+#@st.cache(suppress_st_warning=True)
 def barchartplotter(dfcolumn,bine,rang):
     hist_values = np.histogram(dfcolumn.dt.hour, bins=bine, range=rang)[0]
     st.bar_chart(hist_values)
 
 #@timer
-@st.cache(suppress_st_warning=True)
+#@st.cache(suppress_st_warning=True)
 def plotter(x,y,xlabel,ylabel,title):
     fig, ax = plt.subplots()
     ax.plot(x,y,"ro")
@@ -179,7 +178,7 @@ if datasetchoice=='dataset Uber':
     
     option = st.selectbox('Which figure do you want to see? There will be interactive tools in some of them !',
     ["Frequency by DoM","Order by hours","Orders by weekday"])
-    st.write('You selected: ', option,",scroll down to see the entire possibilities!")
+    st.write('You selected:', option," ,scroll down to see the entire possibilities!")
 
     if option=='Frequency by DoM':
         
@@ -258,7 +257,7 @@ if datasetchoice == 'dataset NY':
     ,"Trips dropoff according to hour","Trips per vendor"
     ,"Trips pickup according to hour","duration according to trip distance","trips distance according to pickup hour"
     ,"Passengers per trips"])
-    st.write('You selected: ', option, ",scroll down to see the entire possibilities")
+    st.write('You selected:', option, " ,scroll down to see the entire possibilities")
 
     if option=="fare amount according to trip distance":
         twoplots(df['trip_distance'],df['fare_amount'],'Trip distance','Fare amount',"Fare amount according to trip distance")
