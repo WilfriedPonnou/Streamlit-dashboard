@@ -40,8 +40,9 @@ def timer(func):
         
         with open("logs1.txt","a") as f:
             before=time.time()
-            func(*args,**kwargs)
+            val=func(*args,**kwargs)
             f.write("Function "+ func.__name__ +" took: "+str(time.time()-before)+"seconds in lab3 \n")
+        return val
     return wrapper
 ############################################################""
 
